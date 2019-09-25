@@ -42,7 +42,7 @@ Add the `crossterm_screen` package to your `Cargo.toml` file.
 
 ```
 [dependencies]
-crossterm_screen = "0.2"
+crossterm_screen = "0.3"
 ```
 
 And import the `crossterm_screen` modules you want to use.
