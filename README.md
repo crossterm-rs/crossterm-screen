@@ -6,21 +6,19 @@ This crate allows you to work with alternate and raw screen cross-platform.
 It supports all UNIX and windows terminals down to windows 7 (not all terminals are tested
 see [Tested Terminals](#tested-terminals) for more info)
 
-This crate is a sub-crate of [crossterm](https://crates.io/crates/crossterm) to move between screen
-buffers and switch to raw-mode, it can be use individually.
+`crossterm_screen` is a sub-crate of the [crossterm](https://crates.io/crates/crossterm) crate. You can use it
+directly, but it's **highly recommended** to use the [crossterm](https://crates.io/crates/crossterm) crate with
+the `screen` feature enabled (see [feature flags](https://crossterm-rs.github.io/crossterm/docs/feature_flags.html)
+for more info).
 
-Other sub-crates are:
+## Future
 
-- [crossterm_style](https://crates.io/crates/crossterm_style) 
-- [crossterm_terminal](https://crates.io/crates/crossterm_terminal) 
-- [crossterm_input](https://crates.io/crates/crossterm_input)
-- [crossterm_cursor](https://crates.io/crates/crossterm_cursor)
- 
-When you want to use other modules as well you might want to use crossterm with
-[feature flags](https://crossterm-rs.github.io/crossterm/docs/feature_flags.html).
- 
-In case you are wondering what 'alternate' or 'raw' screen is, you could checkout the
-[book](https://crossterm-rs.github.io/crossterm/docs/screen.html) describing this in more detail.
+> The `crossterm_screen` crate code will be moved to the `crossterm` crate (it's reexported there now).
+> Date is not set yet, but it doesn't make a lot of sense to start a new project with it. Please, use
+> the `crossterm` crate with the `screen` feature enabled.
+
+Issues in this repository are disabled for the same reason. Please, report all issues in the
+[crossterm-rs/crossterm](https://github.com/crossterm-rs/crossterm/issues) repository.
   
 ## Table of contents:
 
