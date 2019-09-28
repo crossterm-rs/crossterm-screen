@@ -26,7 +26,7 @@ impl RawModeCommand {
 impl RawModeCommand {
     /// Enables raw mode.
     pub fn enable(&mut self) -> Result<()> {
-        let console_mode = ConsoleMode::new()?;
+        let console_mode = ConsoleMode::from(Handle::input_handle()?);
 
         let dw_mode = console_mode.mode()?;
 
@@ -39,7 +39,7 @@ impl RawModeCommand {
 
     /// Disables raw mode.
     pub fn disable(&self) -> Result<()> {
-        let console_mode = ConsoleMode::new()?;
+        let console_mode = ConsoleMode::from(Handle::input_handle()?);
 
         let dw_mode = console_mode.mode()?;
 
