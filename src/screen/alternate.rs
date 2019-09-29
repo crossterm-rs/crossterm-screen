@@ -52,18 +52,18 @@ impl AlternateScreen {
 
         command.enable()?;
 
-        if raw_mode {
-            let raw_screen = RawScreen::into_raw_mode()?;
-            return Ok(AlternateScreen {
-                command,
-                _raw_screen: Some(raw_screen),
-            });
-        }
-
-        Ok(AlternateScreen {
+        let mut alternate = AlternateScreen {
             command,
             _raw_screen: None,
-        })
+        };
+
+        if raw_mode {
+            // If into_raw_mode fails, alternate will be dropped and
+            // we'll switch back to the main screen.
+            alternate._raw_screen = Some(RawScreen::into_raw_mode()?);
+        }
+
+        Ok(alternate)
     }
 
     /// Switch the alternate screen back to the main screen.
