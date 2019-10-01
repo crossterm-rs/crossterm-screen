@@ -96,18 +96,15 @@ impl RawScreen {
     }
 }
 
-/// Types which can be converted into "raw mode".
+/// Allows to enable raw mode.
 ///
-/// # Why is this type defined on writers and not readers?
+/// Why this type must be implemented on writers?
 ///
-/// TTYs has their state controlled by the writer, not the reader. You use the writer to clear the
-/// screen, move the cursor and so on, so naturally you use the writer to change the mode as well.
+/// TTYs has their state controlled by the writer, not the reader. You use the writer to
+/// clear the screen, move the cursor and so on, so naturally you use the writer to change
+/// the mode as well.
 pub trait IntoRawMode: Write + Sized {
-    /// Switch to raw mode.
-    ///
-    /// Raw mode means that stdin won't be printed (it will instead have to be written manually by
-    /// the program). Furthermore, the input isn't canonicalised or buffered (that is, you can
-    /// read from stdin one byte of a time). The output is neither modified in any way.
+    /// Enables raw mode.
     fn into_raw_mode(self) -> Result<RawScreen>;
 }
 
