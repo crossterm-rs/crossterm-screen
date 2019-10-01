@@ -20,15 +20,48 @@ use crossterm_utils::Result;
 
 use crate::sys;
 
-/// A wrapper for the raw terminal state, which can be used to write to.
+/// A raw screen.
 ///
-/// Please note that if this type drops, the raw screen will be undone. To prevent this behaviour call `disable_drop`.
+/// Be aware that the raw mode is disabled when you drop the `RawScreen` value.
+/// Call the [`keep_raw_mode_on_drop`](struct.RawScreen.html#method.keep_raw_mode_on_drop)
+/// method to disable this behavior (keep the raw mode enabled).
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```rust
+/// use crossterm_screen::{RawScreen, Result};
+///
+/// fn main() -> Result<()> {
+///     let _raw = RawScreen::into_raw_mode()?;
+///     // Do something in the raw mode
+/// } // `_raw` is dropped here <- raw mode is disabled
+/// ```
+///
+/// Do not disable the raw mode implicitly:
+///
+/// ```rust
+/// use crossterm_screen::{RawScreen, Result};
+///
+/// fn main() -> Result<()> {
+///     let mut raw = RawScreen::into_raw_mode()?;
+///     raw.keep_raw_mode_on_drop();
+///     // Feel free to leave `raw` on it's own/drop it, the raw
+///     // mode won't be disabled
+///
+///     // Do something in the raw mode
+///
+///     // Disable raw mode explicitly
+///     RawScreen::disable_raw_mode()
+/// }
+/// ```
 pub struct RawScreen {
     disable_raw_mode_on_drop: bool,
 }
 
 impl RawScreen {
-    /// Put terminal in raw mode.
+    /// Enables raw mode.
     pub fn into_raw_mode() -> Result<RawScreen> {
         #[cfg(unix)]
         let mut command = sys::unix::RawModeCommand::new();
@@ -42,7 +75,7 @@ impl RawScreen {
         })
     }
 
-    /// Put terminal back in original modes.
+    /// Disables raw mode.
     pub fn disable_raw_mode() -> Result<()> {
         #[cfg(unix)]
         let mut command = sys::unix::RawModeCommand::new();
@@ -53,7 +86,10 @@ impl RawScreen {
         Ok(())
     }
 
-    /// Keeps the raw mode when the `RawMode` value is dropped.
+    /// Keeps the raw mode enabled when `self` is dropped.
+    ///
+    /// See the [`RawScreen`](struct.RawScreen.html) documentation for more
+    /// information.
     pub fn keep_raw_mode_on_drop(&mut self) {
         self.disable_raw_mode_on_drop = false;
     }
