@@ -30,19 +30,22 @@ use crate::sys;
 ///
 /// Basic usage:
 ///
-/// ```rust
-/// use crossterm_screen::{RawScreen, Result};
+/// ```no_run
+/// use crossterm_screen::RawScreen;
+/// use crossterm_utils::Result;
 ///
 /// fn main() -> Result<()> {
 ///     let _raw = RawScreen::into_raw_mode()?;
 ///     // Do something in the raw mode
+///     Ok(())
 /// } // `_raw` is dropped here <- raw mode is disabled
 /// ```
 ///
 /// Do not disable the raw mode implicitly:
 ///
-/// ```rust
-/// use crossterm_screen::{RawScreen, Result};
+/// ```no_run
+/// use crossterm_screen::RawScreen;
+/// use crossterm_utils::Result;
 ///
 /// fn main() -> Result<()> {
 ///     let mut raw = RawScreen::into_raw_mode()?;
@@ -103,6 +106,23 @@ impl RawScreen {
 /// TTYs has their state controlled by the writer, not the reader. You use the writer to
 /// clear the screen, move the cursor and so on, so naturally you use the writer to change
 /// the mode as well.
+///
+/// # Examples
+///
+/// ```no_run
+/// use std::io::stdout;
+/// use crossterm_screen::IntoRawMode;
+/// use crossterm_utils::Result;
+///
+/// fn main() -> Result<()> {
+///     let stdout = stdout();
+///     let _raw = stdout.into_raw_mode()?;
+///
+///     // Do something in the raw mode
+///
+///     Ok(())
+/// } // `_raw` dropped here <- raw mode disabled
+/// ```
 pub trait IntoRawMode: Write + Sized {
     /// Enables raw mode.
     fn into_raw_mode(self) -> Result<RawScreen>;
