@@ -15,10 +15,30 @@ use crate::sys::{self, IAlternateScreenCommand};
 
 use super::RawScreen;
 
-/// With this type you will be able to switch to the alternate screen and then back to the main screen.
-/// Check also the Screen type for switching to alternate mode.
+/// An alternate screen.
 ///
-/// Although this type is available for you to use I would recommend using `Screen` instead.
+/// With this type you will be able to switch to the alternate screen and then back to
+/// the main screen.
+///
+/// Be aware that you'll be switched back to the main screen when you drop the
+/// `AlternateScreen` value.
+///
+/// # Examples
+///
+/// Alternate screen with raw mode enabled:
+///
+/// ```no_run
+/// use crossterm_screen::AlternateScreen;
+/// use crossterm_utils::Result;
+///
+/// fn main() -> Result<()> {
+///     let _alternate = AlternateScreen::to_alternate(true)?;
+///
+///     // Do something on the alternate screen in the raw mode
+///
+///     Ok(())
+/// } // `_alternate` dropped here <- raw mode disabled & back to main screen
+/// ```
 pub struct AlternateScreen {
     #[cfg(windows)]
     command: Box<(dyn IAlternateScreenCommand + Sync + Send)>,
@@ -28,15 +48,16 @@ pub struct AlternateScreen {
 }
 
 impl AlternateScreen {
-    /// Switch to the alternate screen. This function will return an `AlternateScreen` instance if everything went well. This type will give you control over the `AlternateScreen`.
+    /// Switches to the alternate screen.
     ///
-    /// The bool specifies whether the screen should be in raw mode or not.
+    /// # Arguments
     ///
-    /// # What is Alternate screen?
-    /// *Nix style applications often utilize an alternate screen buffer, so that they can modify the entire contents of the buffer without affecting the application that started them.
-    /// The alternate buffer dimensions are exactly the same as the window, without any scrollback region.
-    /// For an example of this behavior, consider when vim is launched from bash.
-    /// Vim uses the entirety of the screen to edit the file, then returning to bash leaves the original buffer unchanged.
+    /// * `raw_mode` - `true` enables the raw mode as well
+    ///
+    /// # Notes
+    ///
+    /// You'll be automatically switched to the main screen if this function
+    /// fails.
     pub fn to_alternate(raw_mode: bool) -> Result<AlternateScreen> {
         #[cfg(windows)]
         let command = if supports_ansi() {
@@ -66,14 +87,13 @@ impl AlternateScreen {
         Ok(alternate)
     }
 
-    /// Switch the alternate screen back to the main screen.
+    /// Switches to the main screen.
     pub fn to_main(&self) -> Result<()> {
         self.command.disable()
     }
 }
 
 impl Drop for AlternateScreen {
-    /// This will switch back to the main screen on drop.
     fn drop(&mut self) {
         let _ = self.to_main();
     }
