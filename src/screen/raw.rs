@@ -61,6 +61,7 @@ pub struct RawScreen {
 }
 
 impl RawScreen {
+    // TODO enable_raw_mode() to keep it synced with enable/disable?
     /// Enables raw mode.
     pub fn into_raw_mode() -> Result<RawScreen> {
         #[cfg(unix)]
