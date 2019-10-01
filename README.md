@@ -40,7 +40,7 @@ fn main() -> Result<()> {
 
 ## Future
 
-> The `crossterm_screen` crate code will be moved to the `crossterm` crate (it's reexported there now).
+> The `crossterm_screen` crate code will be moved to the `crossterm` crate (it's re-exported there now).
 > Date is not set yet, but it doesn't make a lot of sense to start a new project with it. Please, use
 > the `crossterm` crate with the `screen` feature enabled.
 
