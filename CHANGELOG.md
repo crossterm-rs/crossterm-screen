@@ -1,3 +1,9 @@
+# Version master
+
+- Improve the documentation
+  - Public API
+  - Include the book content in the documentation
+
 # Version 0.3.1
 
 - Maintenance release only
