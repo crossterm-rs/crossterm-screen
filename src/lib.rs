@@ -82,7 +82,7 @@ mod sys;
 
 /// An alternate screen.
 ///
-/// With this type you will be able to switch to the alternate screen and then back to
+/// With this type, you will be able to switch to the alternate screen and then back to
 /// the main screen.
 ///
 /// Be aware that you'll be switched back to the main screen when you drop the
@@ -138,7 +138,7 @@ impl AlternateScreen {
         };
 
         if raw_mode {
-            // If into_raw_mode fails, alternate will be dropped and
+            // If into_raw_mode fails, `alternate` will be dropped and
             // we'll switch back to the main screen.
             alternate.raw_screen = Some(RawScreen::into_raw_mode()?);
         }
