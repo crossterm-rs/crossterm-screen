@@ -3,6 +3,7 @@
 - Improve the documentation
   - Public API
   - Include the book content in the documentation
+- Remove all references to the crossterm book
 
 # Version 0.3.1
 

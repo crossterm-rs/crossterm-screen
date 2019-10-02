@@ -8,8 +8,7 @@ see [Tested Terminals](https://github.com/crossterm-rs/crossterm/blob/master/REA
 
 `crossterm_screen` is a sub-crate of the [crossterm](https://crates.io/crates/crossterm) crate. You can use it
 directly, but it's **highly recommended** to use the [crossterm](https://crates.io/crates/crossterm) crate with
-the `screen` feature enabled (see [feature flags](https://crossterm-rs.github.io/crossterm/docs/feature_flags.html)
-for more info).
+the `screen` feature enabled.
 
 ## Getting Started
 
@@ -60,7 +59,6 @@ Issues in this repository are disabled for the same reason. Please, report all i
 
 - [API documentation](https://docs.rs/crossterm_screen/) (with other examples)
 - [Examples repository](https://github.com/crossterm-rs/examples)
-- [The Book](https://crossterm-rs.github.io/crossterm/docs/index.html)
     
 ## Authors
 
