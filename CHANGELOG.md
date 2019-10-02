@@ -4,6 +4,9 @@
   - Public API
   - Include the book content in the documentation
 - Remove all references to the crossterm book
+- New commands introduced
+  - `EnterAlternateScreen`
+  - `LeaveAlternateScreen`
 
 # Version 0.3.1
 
