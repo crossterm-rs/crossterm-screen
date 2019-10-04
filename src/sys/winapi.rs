@@ -1,3 +1,5 @@
+use crossterm_utils::Result;
+use crossterm_winapi::ConsoleMode;
 use winapi::shared::minwindef::DWORD;
 use winapi::um::wincon;
 
@@ -48,29 +50,5 @@ impl RawModeCommand {
         console_mode.set_mode(new_mode)?;
 
         return Ok(());
-    }
-}
-
-/// This command is used for switching to the alternate screen and back to the main screen.
-/// check https://docs.microsoft.com/en-us/windows/console/reading-and-writing-blocks-of-characters-and-attributes for more info
-pub struct ToAlternateScreenCommand;
-
-impl ToAlternateScreenCommand {
-    pub fn new() -> ToAlternateScreenCommand {
-        return ToAlternateScreenCommand {};
-    }
-}
-
-impl IAlternateScreenCommand for ToAlternateScreenCommand {
-    fn enable(&self) -> Result<()> {
-        let alternate_screen = ScreenBuffer::create();
-        alternate_screen.show()?;
-        Ok(())
-    }
-
-    fn disable(&self) -> Result<()> {
-        let screen_buffer = ScreenBuffer::from(Handle::output_handle()?);
-        screen_buffer.show()?;
-        Ok(())
     }
 }
