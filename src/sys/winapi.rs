@@ -1,9 +1,9 @@
 use crossterm_utils::Result;
-use crossterm_winapi::ConsoleMode;
+use crossterm_winapi::{ConsoleMode, Handle};
 use winapi::shared::minwindef::DWORD;
 use winapi::um::wincon;
 
-use self::wincon::{ENABLE_LINE_INPUT, ENABLE_WRAP_AT_EOL_OUTPUT};
+use self::wincon::{ENABLE_ECHO_INPUT, ENABLE_LINE_INPUT, ENABLE_PROCESSED_INPUT};
 
 /// This command is used for enabling and disabling raw mode for Windows systems.
 /// For more info check: https://docs.microsoft.com/en-us/windows/console/high-level-console-modes.
@@ -15,7 +15,7 @@ pub struct RawModeCommand {
 impl RawModeCommand {
     pub fn new() -> Self {
         RawModeCommand {
-            mask: ENABLE_WRAP_AT_EOL_OUTPUT | ENABLE_LINE_INPUT,
+            mask: ENABLE_LINE_INPUT | ENABLE_ECHO_INPUT | ENABLE_PROCESSED_INPUT,
         }
     }
 }
@@ -23,7 +23,7 @@ impl RawModeCommand {
 impl RawModeCommand {
     /// Enables raw mode.
     pub fn enable(&mut self) -> Result<()> {
-        let console_mode = ConsoleMode::new()?;
+        let console_mode = ConsoleMode::from(Handle::input_handle()?);
 
         let dw_mode = console_mode.mode()?;
 
@@ -36,7 +36,7 @@ impl RawModeCommand {
 
     /// Disables raw mode.
     pub fn disable(&self) -> Result<()> {
-        let console_mode = ConsoleMode::new()?;
+        let console_mode = ConsoleMode::from(Handle::input_handle()?);
 
         let dw_mode = console_mode.mode()?;
 

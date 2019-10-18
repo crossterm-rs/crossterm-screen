@@ -33,46 +33,28 @@
 //!
 //! ### Raw Mode
 //!
-//! To understand the concept of a 'raw mode' let's look at the following points:
+//! By default, the terminal behaves in a certain way.
+//! You can think of going to a new line if the input is at the end of the current line, or interpreting backspace
+//! to remove letters. Sometimes it can be useful to disable these modes because this is undesirable.
+//! This may be undesirable if your application wants to read the input without it being shown on the screen.
+//! Raw modes are the modes to create this possibility.
+//
+//! Those modes will be set when enabling raw modes:
 //!
-//! **No line buffering.**
-//!
-//! Normally the terminals use line buffering. This means that the input will be sent to the terminal
-//! line by line. With raw mode, the input will send one byte at a time.
-//!
-//! **Input**
-//!
-//! All input has to be written to the screen buffer manually by the programmer.
-//!
-//! **Characters**
-//!
-//! The characters are not processed by the terminal driver. Also, special character has no meaning.
-//! For example, backspace will not be interpreted as backspace but instead will be sent directly to
-//! the terminal.
-//!
-//! **Escape Characters**
-//!
-//! Note that in raw mode `\n` `\r` will move the cursor to a new line but it will be at the
-//! same position as it was on the previous line.
-//!
-//! Example:
-//!
-//! ```text
-//! some text
-//!          some text
-//!```
-//!
-//! To start at the beginning of the next line, use `\n\r`.
-
-#[doc(no_inline)]
-pub use crossterm_utils::{
-    execute, queue, Command, ErrorKind, ExecutableCommand, QueueableCommand, Result,
-};
+//! - Input will not be forwarded to screen
+//! - Input will not be processed on enter press
+//! - Input will not be line buffered (input sent byte-by-byte to input buffer)
+//! - Special keys like backspace and CTL+C will not be processed by terminal driver
+//! - New line character will not be processed therefore `println!` can't be used, use `write!` instead
 
 // This brings the trait into scope, so we're able to call enter()/leave(),
 // but it it's false positive for unused_imports check
 #[allow(unused_imports)]
 use alternate::AlternateScreen as _;
+#[doc(no_inline)]
+pub use crossterm_utils::{
+    execute, queue, Command, ErrorKind, ExecutableCommand, QueueableCommand, Result,
+};
 
 pub use self::raw::{IntoRawMode, RawScreen};
 
