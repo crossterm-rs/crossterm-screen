@@ -46,15 +46,14 @@
 //! - Special keys like backspace and CTL+C will not be processed by terminal driver
 //! - New line character will not be processed therefore `println!` can't be used, use `write!` instead
 
-#[doc(no_inline)]
-pub use crossterm_utils::{
-    execute, queue, Command, ErrorKind, ExecutableCommand, QueueableCommand, Result,
-};
-
 // This brings the trait into scope, so we're able to call enter()/leave(),
 // but it it's false positive for unused_imports check
 #[allow(unused_imports)]
 use alternate::AlternateScreen as _;
+#[doc(no_inline)]
+pub use crossterm_utils::{
+    execute, queue, Command, ErrorKind, ExecutableCommand, QueueableCommand, Result,
+};
 
 pub use self::raw::{IntoRawMode, RawScreen};
 
