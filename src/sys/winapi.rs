@@ -1,12 +1,7 @@
 use crossterm_utils::Result;
-use crossterm_winapi::ConsoleMode;
+use crossterm_winapi::{ConsoleMode, Handle, ScreenBuffer};
 use winapi::shared::minwindef::DWORD;
 use winapi::um::wincon;
-
-use crossterm_utils::Result;
-use crossterm_winapi::{ConsoleMode, Handle, ScreenBuffer};
-
-use super::IAlternateScreenCommand;
 
 use self::wincon::{ENABLE_ECHO_INPUT, ENABLE_LINE_INPUT, ENABLE_PROCESSED_INPUT};
 
