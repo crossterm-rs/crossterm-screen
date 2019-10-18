@@ -1,19 +1,3 @@
-//! This module is used for enabling and disabling raw mode for the terminal.
-//!
-//! What exactly is raw state:
-//! - No line buffering.
-//!    Normally the terminals uses line buffering. This means that the input will be send to the terminal line by line.
-//!    With raw mode the input will be send one byte at a time.
-//! - Input
-//!   All input has to be written manually by the programmer.
-//! - Characters
-//!   The characters are not processed by the terminal driver, but are sent straight through.
-//!   Special character have no meaning, like backspace will not be interpret as backspace but instead will be directly send to the terminal.
-//! - Escape characters
-//!   Note that in raw modes `\n` `\r` will move to the new line but the cursor will be at the same position as before on the new line therefor use `\n\r` to start at the new line at the first cell.
-//!
-//! With these modes you can easier design the terminal screen.
-
 use std::io::{Stdout, Write};
 
 use crossterm_utils::Result;
