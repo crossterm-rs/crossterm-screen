@@ -11,6 +11,9 @@ exclude = ["target", "Cargo.lock"]
 readme = "README.md"
 edition = "2018"
 
+[badges]
+maintenance = { status = "deprecated" }
+
 [dependencies]
 crossterm_utils = { version = "0.3.1" }
 
