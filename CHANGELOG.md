@@ -1,12 +1,14 @@
 # Version 0.3.2
 
-- Improve the documentation
+- `to_alternate` switch back to main screen if it fails to switch into raw mode ([PR #4](https://github.com/crossterm-rs/crossterm-screen/pull/4))
+- Improve the documentation ([PR #5](https://github.com/crossterm-rs/crossterm-screen/pull/5))
   - Public API
   - Include the book content in the documentation
-- Remove all references to the crossterm book
-- New commands introduced
+- Remove all references to the crossterm book ([PR #6](https://github.com/crossterm-rs/crossterm-screen/pull/6))
+- New commands introduced ([PR #7](https://github.com/crossterm-rs/crossterm-screen/pull/7))
   - `EnterAlternateScreen`
   - `LeaveAlternateScreen`
+- Sync Windows and UNIX raw mode behavior ([PR #8](https://github.com/crossterm-rs/crossterm-screen/pull/8))
 
 # Version 0.3.1
 
