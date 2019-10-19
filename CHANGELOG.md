@@ -1,4 +1,4 @@
-# Version master
+# Version 0.3.2
 
 - Improve the documentation
   - Public API
