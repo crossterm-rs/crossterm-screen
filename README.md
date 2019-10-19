@@ -42,15 +42,6 @@ fn main() -> Result<()> {
     // Do something in the raw mode
 } // `_raw` dropped here <- raw mode is disabled
 ```
-
-## Future
-
-> The `crossterm_screen` crate code will be moved to the `crossterm` crate (it's re-exported there now).
-> Date is not set yet, but it doesn't make a lot of sense to start a new project with it. Please, use
-> the `crossterm` crate with the `screen` feature enabled.
-
-Issues in this repository are disabled for the same reason. Please, report all issues in the
-[crossterm-rs/crossterm](https://github.com/crossterm-rs/crossterm/issues) repository.
   
 ## Features
 
